@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('', function () {
+
+    return \App\Facades\Quote::driver('quotable')->quotes(5);
+});
+
 Route::get('token', TokenController::class)
     ->name('token.generate');
 

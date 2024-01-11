@@ -32,7 +32,10 @@ return [
     ],
 
     'kayne-rest' => [
-        'api' => 'https://api.kanye.rest/',
+        'api' => 'https://api.kanye.rest',
+    ],
+    'quotable' => [
+        'api' => 'https://api.quotable.io/random',
     ],
 
 ];
