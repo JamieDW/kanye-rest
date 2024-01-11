@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GetQuotesRequest;
 use App\Http\Resources\QuoteResource;
 use App\Services\QuoteService;
 use Illuminate\Http\Request;
@@ -21,14 +20,16 @@ class QuoteController extends Controller
     /**
      * Store the newly created resource in storage.
      */
-    public function index(GetQuotesRequest $request)
+    public function index(Request $request)
     {
-        // Optionally purge cached quotes, to retrieve new quotes within same request.
-        if ($request->boolean('purge') === true) {
-            $this->purge();
-        }
-
         $quotes = $this->quotes->random(5);
+
+        return QuoteResource::collection($quotes);
+    }
+
+    public function new(Request $request)
+    {
+        $quotes = $this->quotes->new(5);
 
         return QuoteResource::collection($quotes);
     }

@@ -20,7 +20,7 @@ class QuoteService
     /**
      * @return Quote[]
      */
-    private function get(int $amount): array
+    private function get(int $amount, array $cachedQuotes = []): array
     {
         $uniqueQuotes = [];
 
@@ -39,7 +39,7 @@ class QuoteService
                 continue;
             }
 
-            if (in_array($quote, $uniqueQuotes)) {
+            if (in_array($quote, $uniqueQuotes) || in_array($quote, $cachedQuotes)) {
                 continue;
             }
 
@@ -52,6 +52,17 @@ class QuoteService
     public function random(int $amount)
     {
         return Cache::rememberForever(self::KEY, fn () => $this->get($amount));
+    }
+
+    /**
+     * @return Quote[]
+     */
+    public function new(int $amount): array
+    {
+        /** @var [] | null $cachedQuotes */
+        $cachedQuotes = Cache::get(self::KEY, []);
+
+        return $this->get($amount, $cachedQuotes);
     }
 
     public function purge(): bool

@@ -7,9 +7,9 @@ The challenge will contain a few core features most applications have. That incl
 
 The API we want you to connect to is https://kanye.rest/ the application should have the following features
 
-- [ ] A rest API that shows 5 random Kayne West quotes (must)
+- [X] A rest API that shows 5 random Kayne West quotes (must)
 
-- [ ] There should be an endpoint to refresh the quotes and fetch the next 5 random quotes (must)
+- [X] There should be an endpoint to refresh the quotes and fetch the next 5 random quotes (must)
 
 - [ ] Authentication for these APIs should be done with an API token, not using any package. (must)
 
@@ -21,4 +21,4 @@ The API we want you to connect to is https://kanye.rest/ the application should 
 
 - [ ] Implementation of API using Laravel Manager Design Pattern (Plus)
 
-- [ ] Making third-party API response quick by cache(Plus)
+- [X] Making third-party API response quick by cache(Plus)
