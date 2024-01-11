@@ -31,7 +31,7 @@ class TokenControllerTest extends TestCase
         $originalToken = $this->get(route('token.generate'))['token'];
 
         $response = $this->get(route('token.generate'), [
-            'Authorization' => 'Bearer ' . $originalToken
+            'Authorization' => 'Bearer '.$originalToken,
         ]);
 
         $this->assertEquals($originalToken, $response['token']);

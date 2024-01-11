@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\TokenService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 
 class TokenController extends Controller
 {
@@ -16,8 +16,7 @@ class TokenController extends Controller
         $token = $request->bearerToken();
 
         if ($token === null || Cache::missing($token)) {
-            $token = Str::random(24);
-            Cache::put($token, $token, now()->addHour());
+            $token = TokenService::create();
         }
 
         return response([

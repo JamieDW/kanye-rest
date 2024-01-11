@@ -7,7 +7,6 @@ use Tests\TestCase;
 
 class QuoteControllerTest extends TestCase
 {
-
     public function test_quotes_index_returns_a_successful_response_when_authenticated(): void
     {
         $response = $this->get(route('quotes.index'), $this->getAuthenticatedHeader());
@@ -50,12 +49,13 @@ class QuoteControllerTest extends TestCase
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
-    public function getAuthenticatedHeader(): array {
+    public function getAuthenticatedHeader(): array
+    {
 
         $token = $this->get(route('token.generate'))['token'];
 
         return [
-            'Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer '.$token,
         ];
     }
 }
