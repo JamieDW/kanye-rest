@@ -5,9 +5,7 @@
 
 The challenge will contain a few core features most applications have. That includes connecting to an API, basic MVC using Laravel, exposing an API, and finally, tests.
 
-- [ ] The API we want you to connect to is https://kanye.rest/
-
-- [ ] The application should have the following features
+The API we want you to connect to is https://kanye.rest/ the application should have the following features
 
 - [ ] A rest API that shows 5 random Kayne West quotes (must)
 
