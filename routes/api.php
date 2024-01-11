@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\QuoteController;
+use App\Http\Controllers\TokenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,11 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
+Route::get('token', TokenController::class);
 
 Route::controller(QuoteController::class)
+    ->middleware('auth.bearer')
     ->prefix('quotes')
     ->name('quotes.')
     ->group(function () {
@@ -27,3 +27,7 @@ Route::controller(QuoteController::class)
         Route::get('new', 'new')->name('new');
         Route::get('purge', 'purge')->name('purge');
     });
+
+
+
+

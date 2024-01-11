@@ -49,7 +49,7 @@ class QuoteService
         return array_map(Quote::create(...), $uniqueQuotes);
     }
 
-    public function random(int $amount)
+    public function random(int $amount): array
     {
         return Cache::rememberForever(self::KEY, fn () => $this->get($amount));
     }
