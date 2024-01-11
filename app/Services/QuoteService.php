@@ -23,13 +23,38 @@ class QuoteService
     /**
      * @return Quote[]
      */
-    public function get(int $amount = 5): array
+    private function get(int $amount): array
     {
-        // TODO
+        $uniqueQuotes = [];
+
+        while (count($uniqueQuotes) < $amount) {
+
+            $response = Http::get($this->url);
+
+            if($response->failed()) {
+                continue;
+            }
+
+            /** @var string|null $quote */
+            $quote = $response->json('quote');
+
+            if($quote === null) {
+                continue;
+            }
+
+            if(in_array($quote, $uniqueQuotes)) {
+                continue;
+            }
+
+            $uniqueQuotes[] = $quote;
+        }
+
+        return array_map(Quote::create(...), $uniqueQuotes);
     }
 
-    public function random()
+    public function random(int $amount)
     {
+        return Cache::rememberForever(self::KEY, fn() => $this->get($amount));
     }
 
     public function purge(): bool

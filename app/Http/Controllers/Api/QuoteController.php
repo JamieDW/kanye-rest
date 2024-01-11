@@ -23,7 +23,8 @@ class QuoteController extends Controller
      */
     public function index(Request $request)
     {
-        $quotes = $this->quotes->get();
+
+        $quotes = $this->quotes->random(5);
 
         return QuoteResource::collection($quotes);
     }
@@ -31,7 +32,7 @@ class QuoteController extends Controller
     /**
      * Display the resource.
      */
-    public function refresh()
+    public function purge()
     {
         $this->quotes->purge();
 

@@ -24,5 +24,5 @@ Route::controller(QuoteController::class)
     ->name('quotes.')
     ->group(function () {
         Route::get('', 'index')->name('index');
-        Route::get('refresh', 'refresh')->name('refresh');
+        Route::get('purge', 'purge')->name('purge');
     });
