@@ -15,13 +15,13 @@ class TokenController extends Controller
     {
         $token = $request->bearerToken();
 
-        if($token === null || Cache::missing($token)) {
+        if ($token === null || Cache::missing($token)) {
             $token = Str::random(24);
             Cache::put($token, $token, now()->addHour());
         }
 
         return response([
-            'token' => $token
+            'token' => $token,
         ]);
     }
 }

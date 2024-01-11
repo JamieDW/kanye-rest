@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\QuoteController;
 use App\Http\Controllers\TokenController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('token', TokenController::class);
+Route::get('token', TokenController::class)
+    ->name('token.generate');
 
 Route::controller(QuoteController::class)
     ->middleware('auth.bearer')
@@ -27,7 +27,3 @@ Route::controller(QuoteController::class)
         Route::get('new', 'new')->name('new');
         Route::get('purge', 'purge')->name('purge');
     });
-
-
-
-

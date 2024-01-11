@@ -11,7 +11,7 @@ The API we want you to connect to is https://kanye.rest/ the application should 
 
 - [X] There should be an endpoint to refresh the quotes and fetch the next 5 random quotes (must)
 
-- [ ] Authentication for these APIs should be done with an API token, not using any package. (must)
+- [X] Authentication for these APIs should be done with an API token, not using any package. (must)
 
 - [ ] The above features are tested with Feature tests (must)
 
