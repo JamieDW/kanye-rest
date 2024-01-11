@@ -3,9 +3,6 @@
 namespace App\Services;
 
 use App\DataTransferObjects\Quote;
-use Illuminate\Http\Client\Pool;
-use Illuminate\Http\Client\Response;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -31,18 +28,18 @@ class QuoteService
 
             $response = Http::get($this->url);
 
-            if($response->failed()) {
+            if ($response->failed()) {
                 continue;
             }
 
             /** @var string|null $quote */
             $quote = $response->json('quote');
 
-            if($quote === null) {
+            if ($quote === null) {
                 continue;
             }
 
-            if(in_array($quote, $uniqueQuotes)) {
+            if (in_array($quote, $uniqueQuotes)) {
                 continue;
             }
 
@@ -54,7 +51,7 @@ class QuoteService
 
     public function random(int $amount)
     {
-        return Cache::rememberForever(self::KEY, fn() => $this->get($amount));
+        return Cache::rememberForever(self::KEY, fn () => $this->get($amount));
     }
 
     public function purge(): bool

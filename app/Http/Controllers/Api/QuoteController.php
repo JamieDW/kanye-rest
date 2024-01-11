@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GetQuotesRequest;
 use App\Http\Resources\QuoteResource;
 use App\Services\QuoteService;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class QuoteController extends Controller
 {
@@ -21,8 +21,12 @@ class QuoteController extends Controller
     /**
      * Store the newly created resource in storage.
      */
-    public function index(Request $request)
+    public function index(GetQuotesRequest $request)
     {
+        // Optionally purge cached quotes, to retrieve new quotes within same request.
+        if ($request->boolean('purge') === true) {
+            $this->purge();
+        }
 
         $quotes = $this->quotes->random(5);
 

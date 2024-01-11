@@ -12,7 +12,4 @@ readonly class Quote
     {
         return new self($quote);
     }
-
-
-
 }
