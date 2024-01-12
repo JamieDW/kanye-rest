@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static string driver(string $driver = null)
- * @method static \App\DataTransferObjects\Quote quote()
+ * @method static ?string quote()
  *
  * @see QuoteManager
  */
