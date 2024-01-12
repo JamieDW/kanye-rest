@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Api;
 
+use App\Services\TokenService;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -51,11 +52,8 @@ class QuoteControllerTest extends TestCase
 
     public function getAuthenticatedHeader(): array
     {
-
-        $token = $this->get(route('token.generate'))['token'];
-
         return [
-            'Authorization' => 'Bearer '.$token,
+            'Authorization' => 'Bearer '.TokenService::create(),
         ];
     }
 }

@@ -18,7 +18,7 @@ class BearerTokenAuthentication
     {
         $bearerToken = $request->bearerToken();
 
-        abort_unless($bearerToken, Response::HTTP_UNAUTHORIZED);
+        abort_unless($bearerToken !== null, Response::HTTP_UNAUTHORIZED);
 
         abort_unless(Cache::has($bearerToken), Response::HTTP_UNAUTHORIZED);
 

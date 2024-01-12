@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Quotable;
 
 use App\Contracts\Quotable;
-use App\Quoting\KayneQuotes;
-use App\Quoting\QuotableQuotes;
 use Illuminate\Support\Manager;
 use Override;
 
@@ -21,9 +19,9 @@ class QuoteManager extends Manager implements Quotable
     }
 
     #[Override]
-    public function quotes(int $amount)
+    public function quote(): ?string
     {
-        return $this->driver()->quotes($amount);
+        return $this->driver()->quote();
     }
 
     #[Override]

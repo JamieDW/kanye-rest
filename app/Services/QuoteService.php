@@ -3,22 +3,19 @@
 namespace App\Services;
 
 use App\DataTransferObjects\Quote;
+use App\Quotable\QuoteManager;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 
 class QuoteService
 {
     private const string KEY = 'quotes';
 
-    private string $url;
-
-    public function __construct()
+    public function __construct(public QuoteManager $manager)
     {
-        $this->url = config('services.kayne-rest.api');
     }
 
     /**
-     * @return Quote[]
+     * @return string[]
      */
     private function get(int $amount, array $cachedQuotes = []): array
     {
@@ -26,14 +23,7 @@ class QuoteService
 
         while (count($uniqueQuotes) < $amount) {
 
-            $response = Http::get($this->url);
-
-            if ($response->failed()) {
-                continue;
-            }
-
-            /** @var string|null $quote */
-            $quote = $response->json('quote');
+            $quote = $this->manager->quote();
 
             if ($quote === null) {
                 continue;
@@ -46,12 +36,18 @@ class QuoteService
             $uniqueQuotes[] = $quote;
         }
 
-        return array_map(Quote::create(...), $uniqueQuotes);
+        return $uniqueQuotes;
     }
 
+    /**
+     * @return Quote[]
+     */
     public function random(int $amount): array
     {
-        return Cache::rememberForever(self::KEY, fn () => $this->get($amount));
+        /** @var string[] $cachedQuotes */
+        $cachedQuotes = Cache::rememberForever(self::KEY, fn () => $this->get($amount));
+
+        return $this->transform($cachedQuotes);
     }
 
     /**
@@ -59,14 +55,26 @@ class QuoteService
      */
     public function new(int $amount): array
     {
-        /** @var [] | null $cachedQuotes */
+        /** @var string[] $cachedQuotes */
         $cachedQuotes = Cache::get(self::KEY, []);
 
-        return $this->get($amount, $cachedQuotes);
+        $quotes = $this->get($amount, $cachedQuotes);
+
+        return $this->transform($quotes);
     }
 
     public function purge(): bool
     {
         return Cache::forget(self::KEY);
+    }
+
+    /**
+     * @return Quote[]
+     */
+    private function transform(array $quotes): array
+    {
+        return array_map(
+            fn (string $quote) => (new Quote($quote)),
+            $quotes);
     }
 }

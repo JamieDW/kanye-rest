@@ -2,12 +2,12 @@
 
 namespace App\Facades;
 
-use App\Services\QuoteManager;
+use App\Quotable\QuoteManager;
 use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static string driver(string $driver = null)
- * @method static \App\DataTransferObjects\Quote[] quotes(int $amount)
+ * @method static \App\DataTransferObjects\Quote quote()
  *
  * @see QuoteManager
  */
