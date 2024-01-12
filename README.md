@@ -19,6 +19,6 @@ The API we want you to connect to is https://kanye.rest/ the application should 
 
 - [ ] Provide a README on how we can set up and test the application (must)
 
-- [ ] Implementation of API using Laravel Manager Design Pattern (Plus)
+- [X] Implementation of API using Laravel Manager Design Pattern (Plus)
 
 - [X] Making third-party API response quick by cache(Plus)

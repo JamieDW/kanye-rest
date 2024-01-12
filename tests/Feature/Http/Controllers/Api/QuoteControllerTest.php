@@ -10,6 +10,7 @@ class QuoteControllerTest extends TestCase
 {
     public function test_quotes_index_returns_a_successful_response_when_authenticated(): void
     {
+
         $response = $this->get(route('quotes.index'), $this->getAuthenticatedHeader());
 
         $response->assertStatus(Response::HTTP_OK);
@@ -48,6 +49,33 @@ class QuoteControllerTest extends TestCase
         $response = $this->get(route('quotes.purge'));
 
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+    }
+
+    public function test_quotes_index_are_duplicates_after_initial_visit(): void
+    {
+        $initialResponse = $this->get(route('quotes.index'), $this->getAuthenticatedHeader());
+        $anotherResponse = $this->get(route('quotes.index'), $this->getAuthenticatedHeader());
+
+        $this->assertSame($initialResponse->content(), $anotherResponse->content());
+    }
+
+    public function test_quotes_new_are_unique_for_each_visit(): void
+    {
+        $initialResponse = $this->get(route('quotes.new'), $this->getAuthenticatedHeader());
+        $anotherResponse = $this->get(route('quotes.new'), $this->getAuthenticatedHeader());
+
+        $this->assertNotSame($initialResponse->content(), $anotherResponse->content());
+    }
+
+    public function test_quotes_index_are_unique_after_purge(): void
+    {
+        $initialResponse = $this->get(route('quotes.index'), $this->getAuthenticatedHeader());
+
+        $this->get(route('quotes.purge'), $this->getAuthenticatedHeader());
+
+        $anotherResponse = $this->get(route('quotes.index'), $this->getAuthenticatedHeader());
+
+        $this->assertNotSame($initialResponse->content(), $anotherResponse->content());
     }
 
     public function getAuthenticatedHeader(): array
