@@ -20,8 +20,8 @@ I have used PHPUnit as my test framework as that already comes with a fresh Lara
 2. The tests will automatically create an authentication token for any authenticated API routes.
 3. If you would like to interact with the API yourself, you will need a REST client like Postman or Insomnia. The following API routes are available:
    - `{localhost}/api/quotes` - retrieves cached quotes.
-   - `{localhost}/api/new` - retrieves new quotes.
-   - `{localhost}/api/purge` - purges the cached quotes
+   - `{localhost}/api/quotes/new` - retrieves new quotes.
+   - `{localhost}/api/quotes/purge` - purges the cached quotes
 4. However, all these routes are authenticated, so you will first need to generate an authentication token using the following artisan command. `php artisan app:create-token`
 5. I have used bearer authentication method for this task. Simply copy the token and add it the request header of your REST client; it should look something like this. `Authorization: Bearer {token}`. Please note that the token expires after 10 minutes.
 6. You are now set up to use the above API endpoints!
