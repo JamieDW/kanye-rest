@@ -8,8 +8,9 @@ I will presume you have a development environment already set up for PHP/Laravel
 1. Run the following command through your terminal to clone the repository: `git clone https://github.com/JamieDW/kanye-rest` then `cd kayne-rest`
 2. You will then want to install the composer packages: `composer install`
 3. Depending on your development environment, now is the time to serve the application locally.
-4. Generate your application key with `php artisan key:generate`
-5. We are now ready to test the Laravel application!
+4. Run `cp .env.example .env or copy .env.example .env`
+5. Generate your application key with `php artisan key:generate`
+6. We are now ready to test the Laravel application!
 
 ### Testing
 
